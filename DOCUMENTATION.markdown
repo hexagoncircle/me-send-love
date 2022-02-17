@@ -1,4 +1,5 @@
 # CodePen Export with Build Process
+
 _Transform raw code into a browser-ready preview... offline_
 
 This package contains all of the original code ([src/](./src/)), the original in-browser preview ([/backup/dist](./backup/dist)), and a custom build script with preprocessors. You'll be able to edit and build for a local CodePen-like experience.
@@ -23,7 +24,7 @@ To build for distribution:
 npm run build
 ```
 
-All of the final output will be dropped into the [/dist/](./dist) folder.
+All of the final output will be dropped into the [/docs/](./dist) folder.
 
 ## Server
 
@@ -49,12 +50,12 @@ npm run serve
 |  |-- style.(css|scss|less|...) - The raw CSS input, or preprocessor equivalent
 |  |-- script.(js|ts|coffee|...) - The raw JavaScript input, or preprocessor equivalent
 |
-|-- /dist/ - The compiled output after running `npm run build`
+|-- /docs/ - The compiled output after running `npm run build`
 |  |-- index.html
 |  |-- script.js
 |  |-- style.css
 |
 |-- /backup/ - Backup copy of the original code and in-browser preview from CodePen
-|  |-- /dist/
+|  |-- /docs/
 |  |-- /src/
 ```

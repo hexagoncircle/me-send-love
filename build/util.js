@@ -1,12 +1,12 @@
-const { src, dest, series } = require('gulp');
-const rename = require('gulp-rename');
-const del = require('del');
+const { src, dest, series } = require("gulp");
+const rename = require("gulp-rename");
+const del = require("del");
 
-const { config } = require('../package.json');
+const { config } = require("../package.json");
 
 /*
  * Typical PreProcessor workflow
- * Reads files from /src/ directory, runs processes, and outputs to /dist/ directory
+ * Reads files from /src/ directory, runs processes, and outputs to /docs/ directory
  *
  * Pass in a `rename` option to rename the processed files
  * Pass in a `cleanup` parameter to remove unnecessary files
@@ -19,14 +19,14 @@ function makeTask(opts) {
     src(
       opts.src.map((file) => config.srcDir + file),
       {
-        sourcemaps: config.sourcemaps
+        sourcemaps: config.sourcemaps,
       }
     ).pipe(dest(config.distDir)); // Copy to the Dist dir
 
     const filesToModify = src(
       opts.src.map((file) => config.distDir + file),
       {
-        sourcemaps: config.sourcemaps
+        sourcemaps: config.sourcemaps,
       }
     ); // Make sure we include any additional files from the dist dir
 
@@ -49,7 +49,7 @@ function makeTask(opts) {
         // Pipe the output to the destination
         .pipe(
           dest(config.distDir, {
-            sourcemaps: '.'
+            sourcemaps: ".",
           })
         )
     );
@@ -79,7 +79,7 @@ function makeRename(opts) {
 }
 
 /*
- * Delete unnecessary files in the /dist/ directory
+ * Delete unnecessary files in the /docs/ directory
  */
 function makeCleanup(opts) {
   function runCleanup(done) {
@@ -87,10 +87,10 @@ function makeCleanup(opts) {
     del.sync(filesToDelete.map((file) => config.distDir + file));
     done();
   }
-  runCleanup.displayName = 'cleanup:' + opts.key;
+  runCleanup.displayName = "cleanup:" + opts.key;
   return runCleanup;
 }
 
 module.exports = {
-  makeTask
+  makeTask,
 };
