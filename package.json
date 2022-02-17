@@ -3,7 +3,7 @@
   "version": "2022.1.1-6.14.26",
   "private": false,
   "license": "MIT",
-  "homepage": "https://codepen.io/hexagoncircle/pen/PoOberB",
+  "homepage": "https://hexagoncircle.github.io/almost-before-we-knew-it/",
   "scripts": {
     "build": "gulp -f ./build/gulpfile.js --cwd ./ --continue",
     "serve": "gulp serve -f ./build/gulpfile.js --cwd ./ --continue",
