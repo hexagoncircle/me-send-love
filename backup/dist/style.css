@@ -1,0 +1,324 @@
+@import url("https://fonts.googleapis.com/css2?family=Chewy&family=Space+Mono&display=swap");
+
+:where(html) {
+  --dark: hsl(355 96% 2%);
+  --lite: hsl(355 96% 99%);
+  --red: hsl(355 96% 38%);
+  --pink: hsl(330 92% 76%);
+
+  --color-bg: var(--dark);
+  --color-text: var(--lite);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --radius: 2px;
+  --shadow: hsla(0 0% 0% / 0.075) 4px 4px 0;
+  --font-base: "Space Mono", monospace;
+  --font-display: "Chewy", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  --padding: clamp(1rem, 4vw, 1.5rem);
+  font-family: var(--font-base);
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  line-height: 1.3;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+.scene {
+  display: grid;
+  grid-template: "scene" 1fr / minmax(0, 1fr);
+  place-items: center;
+  place-content: center;
+  padding: var(--padding);
+  perspective: 250px;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.scene > * {
+  grid-area: scene;
+}
+
+.majesty {
+  width: 150vmax;
+  height: 150vmax;
+  background-image: repeating-conic-gradient(
+    from 0deg,
+    white 0deg 15deg,
+    transparent 15deg 30deg
+  );
+  opacity: 0;
+  z-index: -1;
+}
+
+.text {
+  position: relative;
+  width: 100%;
+  max-width: 20ch;
+  letter-spacing: 0.05em;
+  font-family: var(--font-display);
+  font-size: calc(1rem + 3vw);
+  line-height: 1.1;
+  opacity: 0;
+  z-index: 0;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.word {
+  transform-style: preserve-3d;
+}
+
+.char {
+  display: inline-block;
+  transform-origin: center bottom;
+}
+
+.hearts {
+  display: flex;
+  gap: 5vw;
+  isolation: isolate;
+}
+
+.hearts > svg {
+  --size: min(80px, 8vmin);
+  color: var(--color-text);
+  opacity: 0;
+  width: var(--size);
+  height: var(--size);
+  transform: translateY(50vh);
+  overflow: visible;
+}
+
+.heart-face {
+  position: relative;
+  z-index: 1;
+}
+
+.heart-face > *:not(.heart-body) {
+  opacity: 0;
+}
+
+.heart-exclaim {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: min(60px, 6vmin);
+  opacity: 0;
+}
+
+.textarea-wrapper {
+  display: grid;
+  margin-top: var(--space-2);
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  border: 1px dashed hsla(0 0% 0% / 0.5);
+}
+
+.textarea-wrapper::after {
+  content: attr(data-replicated-value) " ";
+  white-space: pre-wrap;
+  word-break: break-word;
+  visibility: hidden;
+  font-family: inherit;
+}
+
+.textarea-wrapper > textarea {
+  padding: 0;
+  resize: none;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.textarea-wrapper > textarea,
+.textarea-wrapper::after {
+  border: none;
+  font: inherit;
+  line-height: 1.1;
+  padding: var(--space-1);
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.textarea-wrapper:focus-within,
+.textarea-wrapper.has-value {
+  border-color: transparent;
+}
+
+textarea:focus {
+  outline-offset: 4px;
+}
+
+button {
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  position: relative;
+  padding: var(--space-2) var(--space-3);
+  color: var(--dark);
+  background: var(--pink);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+button svg {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  pointer-events: none;
+  transform: rotate(180deg);
+}
+
+button[aria-expanded="true"] svg {
+  transform: rotate(0);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button.copy:after {
+  content: "Copied!";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background: hsl(330 92% 90%);
+}
+
+button.copied:after {
+  opacity: 1;
+  -webkit-animation: copied 500ms ease-out;
+          animation: copied 500ms ease-out;
+}
+
+@-webkit-keyframes copied {
+  20% {
+    background-color: white;
+  }
+}
+
+@keyframes copied {
+  20% {
+    background-color: white;
+  }
+}
+
+a.preview {
+  display: none;
+  align-items: flex-start;
+  gap: 0.3rem;
+  padding: var(--space-2);
+}
+
+a.preview[href] {
+  display: inline-flex;
+}
+
+.custom-link-generator {
+  --duration: 420ms;
+  --ease-in: cubic-bezier(0.34, 1.56, 0.42, 0.95);
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  position: fixed;
+  top: var(--padding);
+  left: var(--padding);
+  width: calc(100% - var(--padding) * 2);
+  max-width: 30rem;
+  z-index: 1;
+  transform: translateY(calc(-100% - var(--padding)));
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.toggle {
+  position: absolute;
+  top: calc(100% + var(--padding));
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.input-block {
+  visibility: hidden;
+  padding: var(--space-3);
+  color: black;
+  background-color: white;
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  transition: visibility 0s var(--duration);
+  z-index: 1;
+}
+
+.user-inputs,
+.user-inputs > * + * {
+  margin-top: var(--space-4);
+}
+
+.description span {
+  margin-left: calc(var(--space-1) * -1);
+}
+
+.textarea-wrapper {
+  margin-top: var(--space-1);
+}
+
+.input-block label {
+  display: block;
+}
+
+.character-count {
+  margin-top: var(--space-1);
+  font-size: 0.8em;
+}
+
+.character-count.at-max {
+  color: var(--red);
+}
+
+.custom-link-generator.expanded {
+  transform: translateY(0);
+  transition-timing-function: var(--ease-in);
+}
+
+.custom-link-generator.expanded .input-block {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion) {
+  .custom-link-generator {
+    transition-duration: 1ms;
+  }
+}
