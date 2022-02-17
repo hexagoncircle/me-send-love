@@ -302,6 +302,27 @@ a.preview[href] {
   transition-delay: 0s;
 }
 
+.project-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  width: calc(100% - var(--space-2) * 2);
+  position: fixed;
+  color: var(--color-text);
+  left: var(--space-2);
+  bottom: var(--space-2);
+  font-size: 0.8em;
+}
+
+.project-info a {
+  color: inherit;
+}
+
+.project-info ul li {
+  display: inline-block;
+}
+
 @media (prefers-reduced-motion) {
   .custom-link-generator {
     transition-duration: 1ms;
