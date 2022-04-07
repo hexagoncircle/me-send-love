@@ -385,7 +385,7 @@ a.preview[href] {
 }
 
 .project-info a {
-  color: inherit;
+  color: var(--color-text);
 }
 
 .project-info ul li {
